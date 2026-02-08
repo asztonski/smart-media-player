@@ -46,23 +46,13 @@ const VideoPlayer = () => {
         observerRef.current.takeRecords();
       }
     };
-    const onPause = async () => {
-      // If paused and in PiP, exit PiP
-      if (document.pictureInPictureElement === video) {
-        try {
-          await document.exitPictureInPicture();
-        } catch (e) {}
-      }
-    };
     video.addEventListener("play", onPlay);
-    video.addEventListener("pause", onPause);
 
     // PiP on tab visibility change
     const onVisibilityChange = async () => {
       if (!video) return;
       if (document.visibilityState === "hidden") {
         if (
-          !video.paused &&
           document.pictureInPictureEnabled &&
           document.pictureInPictureElement !== video
         ) {
@@ -80,11 +70,62 @@ const VideoPlayer = () => {
     };
     document.addEventListener("visibilitychange", onVisibilityChange);
 
+    // Media Session API integration
+    if ("mediaSession" in navigator && video) {
+      navigator.mediaSession.metadata = new window.MediaMetadata({
+        title: "Przykładowy film",
+        artist: "Autor demo",
+        album: "Demo Album",
+        artwork: [
+          { src: "/sample-cover.jpg", sizes: "512x512", type: "image/jpeg" },
+        ],
+      });
+
+      navigator.mediaSession.setActionHandler("play", () => {
+        video.play();
+      });
+      navigator.mediaSession.setActionHandler("pause", () => {
+        video.pause();
+      });
+      navigator.mediaSession.setActionHandler("seekbackward", (details) => {
+        video.currentTime = Math.max(
+          0,
+          video.currentTime - (details?.seekOffset || 10),
+        );
+      });
+      navigator.mediaSession.setActionHandler("seekforward", (details) => {
+        video.currentTime = Math.min(
+          video.duration,
+          video.currentTime + (details?.seekOffset || 10),
+        );
+      });
+      navigator.mediaSession.setActionHandler("seekto", (details) => {
+        if (details?.fastSeek && "fastSeek" in video) {
+          // @ts-ignore
+          video.fastSeek(details.seekTime);
+        } else if (typeof details?.seekTime === "number") {
+          video.currentTime = details.seekTime;
+        }
+      });
+      navigator.mediaSession.setActionHandler("stop", () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    }
+
     return () => {
       observerRef.current?.disconnect();
       video.removeEventListener("play", onPlay);
-      video.removeEventListener("pause", onPause);
       document.removeEventListener("visibilitychange", onVisibilityChange);
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.metadata = null;
+        navigator.mediaSession.setActionHandler("play", null);
+        navigator.mediaSession.setActionHandler("pause", null);
+        navigator.mediaSession.setActionHandler("seekbackward", null);
+        navigator.mediaSession.setActionHandler("seekforward", null);
+        navigator.mediaSession.setActionHandler("seekto", null);
+        navigator.mediaSession.setActionHandler("stop", null);
+      }
     };
   }, []);
 
