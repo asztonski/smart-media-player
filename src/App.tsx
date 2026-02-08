@@ -1,10 +1,10 @@
 function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <header className="bg-blue-600 text-white w-full py-4 text-center">
-        <h1 className="text-4xl font-bold">Smart Media Player</h1>
+      <header className="bg-blue-600 z-10 text-white py-4 text-center fixed top-0 left-0 w-full">
+        <h1 className="text-xl md:text-4xl font-bold">Smart Media Player</h1>
       </header>
-      <main className="max-w-4xl p-8">
+      <main className="max-w-4xl p-8 mt-10 md:mt-16">
         <article className="prose prose-lg">
           <h2>Smart Media Player – Inteligentny odtwarzacz wideo.</h2>
           <p>
