@@ -107,6 +107,40 @@ function App() {
             doświadczenia użytkownika na stronie.
           </p>
         </article>
+        <article className="prose prose-lg">
+          <h3>Lazy Loading – Optymalizacja ładowania</h3>
+          <p>
+            W trosce o wydajność i szybkość działania strony zaimplementowany
+            zostanie mechanizm lazy loading. Film zacznie się pobierać dopiero
+            wtedy, gdy sekcja z odtwarzaczem znajdzie się blisko widocznego
+            obszaru strony (np. 200px przed pojawieniem się). Dzięki temu
+            zmniejszymy obciążenie sieci i przyspieszymy ładowanie strony,
+            szczególnie na urządzeniach mobilnych.
+          </p>
+          <h3>Obsługa błędów</h3>
+          <p>
+            Nie każda przeglądarka obsługuje tryb Picture-in-Picture czy Media
+            Session API. Dlatego zadbamy o odpowiednią obsługę błędów, aby
+            użytkownik zawsze miał dostęp do podstawowych funkcji odtwarzacza,
+            nawet jeśli jego przeglądarka nie wspiera zaawansowanych API.
+          </p>
+          <h3>Dodatkowe funkcje – Snapshot</h3>
+          <p>
+            Dla bardziej zaawansowanych użytkowników przewidziano funkcję
+            "Snapshot". Za pomocą Canvas API użytkownik będzie mógł przechwycić
+            aktualną klatkę wideo i zapisać ją jako plik .webp. To świetne
+            rozwiązanie dla osób, które chcą szybko uchwycić ważny moment z
+            filmu.
+          </p>
+          <p>
+            Nowoczesne API przeglądarkowe, takie jak Intersection Observer,
+            Media Session czy Picture-in-Picture, pozwalają na tworzenie
+            aplikacji, które są bardziej responsywne, wydajne i przyjazne dla
+            użytkownika. Dzięki ich zastosowaniu odtwarzacz wideo stanie się nie
+            tylko narzędziem do oglądania filmów, ale także integralną częścią
+            doświadczenia użytkownika na stronie.
+          </p>
+        </article>
       </main>
       <footer className="bg-gray-800 text-white w-full py-4 text-center">
         <p>© 2026 Smart Media Player. Wszystkie prawa zastrzeżone.</p>
