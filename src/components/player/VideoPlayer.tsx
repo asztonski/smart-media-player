@@ -51,14 +51,6 @@ const VideoPlayer = () => {
     });
     observerRef.current.observe(video);
 
-    // Listen for play/pause to re-check PiP logic
-    const onPlay = () => {
-      if (observerRef.current && video) {
-        observerRef.current.takeRecords();
-      }
-    };
-    video.addEventListener("play", onPlay);
-
     // PiP on tab visibility change
     const onVisibilityChange = async () => {
       if (!video) return;
@@ -126,7 +118,6 @@ const VideoPlayer = () => {
 
     return () => {
       observerRef.current?.disconnect();
-      video.removeEventListener("play", onPlay);
       document.removeEventListener("visibilitychange", onVisibilityChange);
       if ("mediaSession" in navigator) {
         navigator.mediaSession.metadata = null;
