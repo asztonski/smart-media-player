@@ -57,10 +57,34 @@ const VideoPlayer = () => {
     video.addEventListener("play", onPlay);
     video.addEventListener("pause", onPause);
 
+    // PiP on tab visibility change
+    const onVisibilityChange = async () => {
+      if (!video) return;
+      if (document.visibilityState === "hidden") {
+        if (
+          !video.paused &&
+          document.pictureInPictureEnabled &&
+          document.pictureInPictureElement !== video
+        ) {
+          try {
+            await video.requestPictureInPicture();
+          } catch (e) {}
+        }
+      } else if (document.visibilityState === "visible") {
+        if (document.pictureInPictureElement === video) {
+          try {
+            await document.exitPictureInPicture();
+          } catch (e) {}
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     return () => {
       observerRef.current?.disconnect();
       video.removeEventListener("play", onPlay);
       video.removeEventListener("pause", onPause);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 
