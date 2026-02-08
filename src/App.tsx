@@ -1,3 +1,5 @@
+import VideoPlayer from "./components/player/VideoPlayer";
+
 function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
@@ -37,18 +39,39 @@ function App() {
           </p>
         </article>
 
-        <section className="my-8 bg-white p-6 rounded-lg shadow-lg">
-          <h3 className="text-2xl font-bold mb-4 text-gray-800">
-            Odtwarzacz wideo
-          </h3>
-          <div className="aspect-video bg-black rounded-lg overflow-hidden">
-            <video className="w-full h-full" controls preload="metadata">
-              <source src="/public/sample-video.mp4" type="video/mp4" />
-              <source src="/public/sample-video.webm" type="video/webm" />
-              Twoja przeglądarka nie obsługuje odtwarzania wideo.
-            </video>
-          </div>
-        </section>
+        <article className="prose prose-lg">
+          <h2>Smart Media Player – Inteligentny odtwarzacz wideo.</h2>
+          <p>
+            Witaj w projekcie Smart Media Player! Celem tego zadania jest
+            stworzenie nowoczesnego odtwarzacza wideo, który dynamicznie reaguje
+            na zachowanie użytkownika i wykorzystuje zaawansowane API
+            przeglądarkowe. Dzięki temu odtwarzacz stanie się bardziej
+            intuicyjny, wydajny i dostosowany do potrzeb użytkownika.
+          </p>
+          <h3>Auto-PiP – Automatyczny tryb Picture-in-Picture</h3>
+          <p>
+            Jedną z kluczowych funkcji odtwarzacza jest automatyczne
+            przełączanie wideo w tryb Picture-in-Picture (PiP). Dzięki temu
+            użytkownik może kontynuować oglądanie filmu w małym okienku, nawet
+            gdy przewinie stronę i odtwarzacz zniknie z pola widzenia. To
+            rozwiązanie jest szczególnie przydatne podczas przeglądania długich
+            stron, gdzie użytkownik chce jednocześnie konsumować treści wideo i
+            tekstowe. Gdy użytkownik wróci do sekcji z odtwarzaczem, wideo
+            automatycznie powróci do głównego kontenera.
+          </p>
+          <h3>Media Session API – Integracja z systemem</h3>
+          <p>
+            Kolejną funkcjonalnością jest integracja z Media Session API. Dzięki
+            temu użytkownik będzie mógł sterować odtwarzaniem wideo bez
+            konieczności przechodzenia na kartę przeglądarki. W systemowym
+            centrum powiadomień pojawią się informacje o odtwarzanym filmie,
+            takie jak tytuł, artysta czy okładka. Dodatkowo obsłużone zostaną
+            przyciski akcji, takie jak "play", "pause" czy "seek", co znacznie
+            poprawi wygodę użytkowania.
+          </p>
+        </article>
+
+        <VideoPlayer />
 
         <article className="prose prose-lg">
           <h3>Lazy Loading – Optymalizacja ładowania</h3>
