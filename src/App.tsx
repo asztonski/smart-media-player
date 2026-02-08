@@ -43,8 +43,8 @@ function App() {
           </h3>
           <div className="aspect-video bg-black rounded-lg overflow-hidden">
             <video className="w-full h-full" controls preload="metadata">
-              <source src="/video.mp4" type="video/mp4" />
-              <source src="/video.webm" type="video/webm" />
+              <source src="/public/sample-video.mp4" type="video/mp4" />
+              <source src="/public/sample-video.webm" type="video/webm" />
               Twoja przeglądarka nie obsługuje odtwarzania wideo.
             </video>
           </div>
