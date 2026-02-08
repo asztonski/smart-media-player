@@ -133,6 +133,30 @@ const VideoPlayer = () => {
 
   const pipSupported = document.pictureInPictureEnabled;
 
+  const handleSnapshot = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "snapshot.webp";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 100);
+    }, "image/webp");
+  };
+
   return (
     <section className="my-8 bg-white p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-bold mb-4 text-gray-800">
@@ -143,7 +167,7 @@ const VideoPlayer = () => {
           Twoja przeglądarka nie obsługuje trybu Picture-in-Picture (PiP).
         </div>
       )}
-      <div className="aspect-video bg-black rounded-lg overflow-hidden">
+      <div className="aspect-video bg-black rounded-lg overflow-hidden mb-4">
         <video
           ref={videoRef}
           className="w-full h-full"
@@ -155,6 +179,12 @@ const VideoPlayer = () => {
           Twoja przeglądarka nie obsługuje odtwarzania wideo.
         </video>
       </div>
+      <button
+        onClick={handleSnapshot}
+        className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      >
+        Snapshot
+      </button>
     </section>
   );
 };
