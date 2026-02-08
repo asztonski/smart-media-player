@@ -1,12 +1,12 @@
 function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <header className="bg-blue-600 text-white w-full py-4 text-center">
-        <h1 className="text-4xl font-bold">Smart Media Player</h1>
+      <header className="bg-blue-600 z-10 text-white py-4 text-center fixed top-0 left-0 w-full">
+        <h1 className="text-xl md:text-4xl font-bold">Smart Media Player</h1>
       </header>
-      <main className="max-w-4xl p-8">
+      <main className="max-w-4xl p-8 mt-10 md:mt-16">
         <article className="prose prose-lg">
-          <h2>Smart Media Player – Inteligentny odtwarzacz wideo</h2>
+          <h2>Smart Media Player – Inteligentny odtwarzacz wideo.</h2>
           <p>
             Witaj w projekcie Smart Media Player! Celem tego zadania jest
             stworzenie nowoczesnego odtwarzacza wideo, który dynamicznie reaguje
@@ -35,6 +35,22 @@ function App() {
             przyciski akcji, takie jak "play", "pause" czy "seek", co znacznie
             poprawi wygodę użytkowania.
           </p>
+        </article>
+
+        <section className="my-8 bg-white p-6 rounded-lg shadow-lg">
+          <h3 className="text-2xl font-bold mb-4 text-gray-800">
+            Odtwarzacz wideo
+          </h3>
+          <div className="aspect-video bg-black rounded-lg overflow-hidden">
+            <video className="w-full h-full" controls preload="metadata">
+              <source src="/video.mp4" type="video/mp4" />
+              <source src="/video.webm" type="video/webm" />
+              Twoja przeglądarka nie obsługuje odtwarzania wideo.
+            </video>
+          </div>
+        </section>
+
+        <article className="prose prose-lg">
           <h3>Lazy Loading – Optymalizacja ładowania</h3>
           <p>
             W trosce o wydajność i szybkość działania strony zaimplementowany
