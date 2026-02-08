@@ -6,7 +6,7 @@ function App() {
       </header>
       <main className="max-w-4xl p-8">
         <article className="prose prose-lg">
-          <h2>Smart Media Player – Inteligentny odtwarzacz wideo</h2>
+          <h2>Smart Media Player – Inteligentny odtwarzacz wideo.</h2>
           <p>
             Witaj w projekcie Smart Media Player! Celem tego zadania jest
             stworzenie nowoczesnego odtwarzacza wideo, który dynamicznie reaguje
