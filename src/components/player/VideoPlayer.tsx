@@ -46,6 +46,7 @@ const VideoPlayer = () => {
     };
 
     observerRef.current = new window.IntersectionObserver(handleIntersection, {
+      // Use a low threshold to trigger as soon as any part of the video is visible
       threshold: 0.1,
     });
     observerRef.current.observe(video);
@@ -139,11 +140,19 @@ const VideoPlayer = () => {
     };
   }, []);
 
+  const pipSupported =
+    typeof document !== "undefined" && document.pictureInPictureEnabled;
+
   return (
     <section className="my-8 bg-white p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-bold mb-4 text-gray-800">
         Odtwarzacz wideo
       </h3>
+      {!pipSupported && (
+        <div className="mb-4 p-3 bg-yellow-100 text-yellow-800 rounded">
+          Twoja przeglądarka nie obsługuje trybu Picture-in-Picture (PiP).
+        </div>
+      )}
       <div className="aspect-video bg-black rounded-lg overflow-hidden">
         <video
           ref={videoRef}
