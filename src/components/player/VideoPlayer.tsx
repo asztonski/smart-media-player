@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 const VideoPlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const hasBufferedRef = useRef<boolean>(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -11,6 +12,15 @@ const VideoPlayer = () => {
     // Handler for intersection changes
     const handleIntersection = async (entries: IntersectionObserverEntry[]) => {
       const entry = entries[0];
+
+      // Start buffering when video enters viewport for the first time
+      if (entry.isIntersecting && !hasBufferedRef.current) {
+        video.setAttribute("preload", "auto");
+        // Force browser to start buffering
+        video.load();
+        hasBufferedRef.current = true;
+      }
+
       // If video is not visible and is playing, enable PiP
       if (
         !entry.isIntersecting &&
@@ -139,7 +149,7 @@ const VideoPlayer = () => {
           ref={videoRef}
           className="w-full h-full"
           controls
-          preload="metadata"
+          preload="none" // Start with no preload, set to auto when in viewport
         >
           <source src="/sample-video.mp4" type="video/mp4" />
           <source src="/sample-video.webm" type="video/webm" />
